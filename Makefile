@@ -7,3 +7,4 @@ test:
 	docker run --rm magicvision/nodejs-dev ruby --version
 	docker run --rm magicvision/nodejs-dev sass --version
 	docker run --rm magicvision/nodejs-dev git --version
+	docker run --rm magicvision/nodejs-dev python --version

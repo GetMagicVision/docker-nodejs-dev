@@ -44,5 +44,8 @@ RUN apt-get install -y ruby && gem install sass
 # Install git
 RUN apt-get install -y git
 
+# Install python
+RUN apt-get install -y python
+
 COPY ./entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
