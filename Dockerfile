@@ -2,27 +2,19 @@ FROM ubuntu:14.04
 
 MAINTAINER MagicVision Team
 
-# Use Aliyun ubuntu mirror
-RUN echo "deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse" > /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
-    apt-get update -y
+RUN apt-get update -y
 
 # Install nvm
 RUN apt-get install -y curl build-essential libssl-dev man && \
     curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh
-
-# Use Taobao node mirror
-ENV NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
 
 # Install node.js 4.1.0
 RUN bash -ic "nvm install 4.1.0" && \
     bash -ic "nvm alias default 4.1.0" && \
     bash -ic "nvm use 4.1.0"
 
-# Use Taobao npm registry
+# Use Taobao node mirror and npm registry
+ENV NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
 RUN /root/.nvm/v4.1.0/bin/npm config set registry http://registry.npm.taobao.org
 
 # Provisioning gitlab CA
@@ -46,6 +38,14 @@ RUN apt-get install -y git
 
 # Install python
 RUN apt-get install -y python
+
+# Use Aliyun ubuntu mirror
+RUN echo "deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe multiverse" > /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/ubuntu/ trusty-security main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/ubuntu/ trusty-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/ubuntu/ trusty-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
+    apt-get update -y
 
 COPY ./entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
