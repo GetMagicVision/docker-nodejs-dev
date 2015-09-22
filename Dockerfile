@@ -1,4 +1,4 @@
-FROM gitlab/dind
+FROM ubuntu:14.04
 
 MAINTAINER MagicVision Team
 
@@ -28,3 +28,14 @@ RUN /root/.nvm/v4.1.0/bin/npm config set registry http://registry.npm.taobao.org
 # Provisioning gitlab CA
 ADD gitlab-CA.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
+
+# Install docker-cli
+# See https://github.com/docker-library/docker/blob/bb15fc25bbd4f51a880cf02f91eab447b1083b75/1.8/Dockerfile
+# This image should start with `--link some-docker:docker`
+ENV DOCKER_BUCKET get.docker.com
+ENV DOCKER_VERSION 1.8.2
+ENV DOCKER_SHA256 97a3f5924b0b831a310efa8bf0a4c91956cd6387c4a8667d27e2b2dd3da67e4d
+ENV DOCKER_HOST tcp://docker:2375
+RUN curl -fSL "https://${DOCKER_BUCKET}/builds/Linux/x86_64/docker-$DOCKER_VERSION" -o /usr/local/bin/docker && \
+    echo "${DOCKER_SHA256}  /usr/local/bin/docker" | sha256sum -c - && \
+    chmod +x /usr/local/bin/docker
