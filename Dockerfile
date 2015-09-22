@@ -39,3 +39,6 @@ ENV DOCKER_HOST tcp://docker:2375
 RUN curl -fSL "https://${DOCKER_BUCKET}/builds/Linux/x86_64/docker-$DOCKER_VERSION" -o /usr/local/bin/docker && \
     echo "${DOCKER_SHA256}  /usr/local/bin/docker" | sha256sum -c - && \
     chmod +x /usr/local/bin/docker
+
+# Install ruby and sass
+RUN apt-get install -y ruby && gem install sass
