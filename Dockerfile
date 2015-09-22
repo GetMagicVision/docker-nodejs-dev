@@ -11,7 +11,7 @@ RUN echo "deb http://mirrors.aliyun.com/ubuntu/ trusty main restricted universe 
     apt-get update -y
 
 # Install nvm
-RUN apt-get install -y curl build-essential libssl-dev && \
+RUN apt-get install -y curl build-essential libssl-dev man && \
     curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh
 
 # Use Taobao node mirror
