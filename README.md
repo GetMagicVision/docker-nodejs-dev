@@ -10,6 +10,7 @@
 - node.js 4.1.0 with npm
 - Ruby 1.9.1 with gem 1.8.23
 - [Saas][] 3.4.18
+- git 1.9.1
 
 [docker:dind]: https://hub.docker.com/_/docker/#
 [Saas]: https://github.com/sass/sass

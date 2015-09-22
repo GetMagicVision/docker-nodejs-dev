@@ -42,3 +42,6 @@ RUN curl -fSL "https://${DOCKER_BUCKET}/builds/Linux/x86_64/docker-$DOCKER_VERSI
 
 # Install ruby and sass
 RUN apt-get install -y ruby && gem install sass
+
+# Install git
+RUN apt-get install -y git
