@@ -21,6 +21,7 @@ ENV NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
 RUN bash -ic "nvm install 4.1.0" && \
     bash -ic "nvm alias default 4.1.0" && \
     bash -ic "nvm use 4.1.0"
+ENV PATH /root/.nvm/v4.1.0/bin/:$PATH
 
 # Use Taobao npm registry
 RUN /root/.nvm/v4.1.0/bin/npm config set registry http://registry.npm.taobao.org
@@ -45,3 +46,4 @@ RUN apt-get install -y ruby && gem install sass
 
 # Install git
 RUN apt-get install -y git
+
