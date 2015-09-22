@@ -2,6 +2,7 @@
 
 > MagicVision nodejs development env based on Docker
 
+[![Build Status](https://travis-ci.org/GetMagicVision/docker-nodejs-dev.svg)](https://travis-ci.org/GetMagicVision/docker-nodejs-dev)
 [![Docker image layers and size](https://badge.imagelayers.io/magicvision/nodejs-dev:latest.svg)](https://imagelayers.io/?images=magicvision/nodejs-dev:latest 'Get your own badge on imagelayers.io')
 
 ## Features
