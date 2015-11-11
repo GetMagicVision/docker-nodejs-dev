@@ -4,22 +4,27 @@ MAINTAINER MagicVision Team
 
 RUN apt-get update -y
 
+# Add a normal user with sudo permission
+RUN adduser --disabled-password --gecos "" ubuntu && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/ubuntu
+
 # Install nvm
 RUN apt-get install -y curl build-essential libssl-dev man && \
-    curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | sh
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | su - ubuntu -c sh && \
+    echo 'export NVM_DIR="$HOME/.nvm"' >> /etc/profile && \
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> /etc/profile
 
 # Install node.js 4.1.0
-RUN bash -ic "nvm install 4.1.0" && \
-    bash -ic "nvm alias default 4.1.0" && \
-    bash -ic "nvm use 4.1.0"
+RUN su - ubuntu -c "nvm install 4.1.0" && \
+    su - ubuntu -c "nvm alias default 4.1.0" && \
+    su - ubuntu -c "nvm use 4.1.0"
 
 # Use Taobao node mirror and npm registry
 ENV NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
-RUN /root/.nvm/v4.1.0/bin/npm config set registry http://registry.npm.taobao.org
+RUN su - ubuntu -c "npm config set registry http://registry.npm.taobao.org"
 
 # Provisioning gitlab CA
 ADD gitlab-CA.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
+RUN sudo update-ca-certificates
 
 # Install docker-cli
 # See https://github.com/docker-library/docker/blob/bb15fc25bbd4f51a880cf02f91eab447b1083b75/1.8/Dockerfile
@@ -40,7 +45,7 @@ RUN apt-get install -y git
 RUN apt-get install -y python
 
 # Install bower
-RUN apt-get install -y libkrb5-dev && bash -ic "npm install -g bower"
+RUN apt-get install -y libkrb5-dev && su - ubuntu -c "npm install -g bower"
 
 # Use tsinghua ubuntu mirror
 RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty main restricted universe multiverse" > /etc/apt/sources.list && \
@@ -51,4 +56,8 @@ RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty main restricted
     apt-get update -y
 
 COPY ./entrypoint.sh /
+RUN chmod 755 /entrypoint.sh
+
+# Run as a normal user
+USER ubuntu
 ENTRYPOINT ["/entrypoint.sh"]

@@ -15,6 +15,7 @@
 - git 1.9.1
 - python 2.7.6
 - bower 1.6.5
+- Run commands as a normal user named *ubuntu* with sudo permission
 
 [docker:dind]: https://hub.docker.com/_/docker/#
 [Saas]: https://github.com/sass/sass

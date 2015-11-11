@@ -9,3 +9,4 @@ test:
 	docker run --rm magicvision/nodejs-dev git --version
 	docker run --rm magicvision/nodejs-dev python --version
 	docker run --rm magicvision/nodejs-dev bower --version
+	docker run --rm magicvision/nodejs-dev sudo whoami
