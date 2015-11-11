@@ -14,14 +14,17 @@
 - [Saas][] 3.4.18
 - git 1.9.1
 - python 2.7.6
+- bower 1.6.5
 
 [docker:dind]: https://hub.docker.com/_/docker/#
 [Saas]: https://github.com/sass/sass
 
 ## Getting Started
 
-    docker run --privileged --name docker-host -d docker:1.8-dind
-    docker run -it --link docker-host:docker magicvision/nodejs-dev /bin/bash
+```bash
+docker run --privileged --name docker-host -d docker:1.8-dind
+docker run -it --link docker-host:docker magicvision/nodejs-dev /bin/bash
+```
 
 ## License
 
