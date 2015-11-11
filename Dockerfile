@@ -24,7 +24,7 @@ RUN su - ubuntu -c "npm config set registry http://registry.npm.taobao.org"
 
 # Provisioning gitlab CA
 ADD gitlab-CA.crt /usr/local/share/ca-certificates/
-RUN sudo update-ca-certificates
+RUN update-ca-certificates
 
 # Install docker-cli
 # See https://github.com/docker-library/docker/blob/bb15fc25bbd4f51a880cf02f91eab447b1083b75/1.8/Dockerfile
