@@ -1,7 +1,7 @@
 SHELL = /bin/bash -o pipefail
 
 test:
-	docker build -t magicvision/nodejs-dev .
+	docker build -t magicvision/nodejs-dev:latest .
 	docker run --rm magicvision/nodejs-dev node --version
 	docker run --rm magicvision/nodejs-dev npm --version
 	docker run --rm magicvision/nodejs-dev ruby --version

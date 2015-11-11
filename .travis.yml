@@ -1,9 +1,17 @@
+---
 sudo: required
 
 services:
-  - docker
-
+- docker
+env:
+  global:
+  - DOCKER_EMAIL: kyan.ql.he@gmail.com
+  - DOCKER_USERNAME: quanlong
 script:
-  - make test
+- make test
+after_success:
+- if [[ ! -z "$TRAVIS_TAG" ]]; then docker tag magicvision/nodejs-dev:latest magicvision/nodejs-dev:$TRAVIS_TAG ; fi
+- docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+- if [[ ! -z "$TRAVIS_TAG" ]] || [[ "$TRAVIS_BRANCH" = master ]]; then docker push magicvision/nodejs-dev ; fi
 notifications:
   email: false
