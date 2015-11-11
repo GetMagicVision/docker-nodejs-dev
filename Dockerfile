@@ -40,7 +40,7 @@ RUN apt-get install -y git
 RUN apt-get install -y python
 
 # Install bower
-RUN apt-get install -y libkrb5-dev && npm install -g bower
+RUN apt-get install -y libkrb5-dev && bash -ic "npm install -g bower"
 
 # Use tsinghua ubuntu mirror
 RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty main restricted universe multiverse" > /etc/apt/sources.list && \
