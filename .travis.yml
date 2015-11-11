@@ -10,8 +10,8 @@ env:
 script:
 - make test
 after_success:
-- if [[ ! -z "$TRAVIS_TAG" ]]; then docker tag magicvision/nodejs-dev:latest magicvision/nodejs-dev:$TRAVIS_TAG ; fi
+- if [[ ! -z "$TRAVIS_TAG" ]]; then docker tag magicvision/nodejs-dev:latest magicvision/nodejs-dev:${TRAVIS_TAG#v} ; fi
 - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-- if [[ ! -z "$TRAVIS_TAG" ]] || [[ "$TRAVIS_BRANCH" = master ]]; then docker push magicvision/nodejs-dev ; fi
+- if [[ ! -z "$TRAVIS_TAG" ]] || [[ "${TRAVIS_BRANCH}_${TRAVIS_PULL_REQUEST}" = master_false ]]; then docker push magicvision/nodejs-dev ; fi
 notifications:
   email: false
