@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # activate nvm
-export NVM_DIR="/root/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # if we have "--link some-docker:docker" and not DOCKER_HOST, let's set DOCKER_HOST automatically
