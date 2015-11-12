@@ -2,6 +2,9 @@ FROM ubuntu:14.04
 
 MAINTAINER MagicVision Team
 
+ENV NVM_VERSION v0.29.0
+ENV NODEJS_VERSION v5.0.0
+
 RUN apt-get update -y
 
 # Add a normal user with sudo permission
@@ -9,14 +12,14 @@ RUN adduser --disabled-password --gecos "" ubuntu && echo "ubuntu ALL=(ALL) NOPA
 
 # Install nvm
 RUN apt-get install -y curl build-essential libssl-dev man && \
-    curl https://raw.githubusercontent.com/creationix/nvm/v0.16.1/install.sh | su - ubuntu -c sh && \
+    curl https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | su - ubuntu -c sh && \
     echo 'export NVM_DIR="$HOME/.nvm"' >> /etc/profile && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> /etc/profile
 
-# Install node.js 4.1.0
-RUN su - ubuntu -c "nvm install 4.1.0" && \
-    su - ubuntu -c "nvm alias default 4.1.0" && \
-    su - ubuntu -c "nvm use 4.1.0"
+# Install node.js
+RUN su - ubuntu -c "nvm install $NODEJS_VERSION" && \
+    su - ubuntu -c "nvm alias default $NODEJS_VERSION" && \
+    su - ubuntu -c "nvm use $NODEJS_VERSION"
 
 # Use Taobao node mirror and npm registry
 ENV NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
@@ -54,6 +57,9 @@ RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty main restricted
     echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
     echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
     apt-get update -y
+
+# Use 114 DNS
+RUN echo "nameserver 114.114.114.114" > /etc/resolv.conf
 
 # Create builds dir for CI
 RUN mkdir /builds && chmod 777 /builds
