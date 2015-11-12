@@ -55,9 +55,13 @@ RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty main restricted
     echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
     apt-get update -y
 
+# Create builds dir for CI
+RUN mkdir /builds && chmod 777 /builds
+
 COPY ./entrypoint.sh /
 RUN chmod 755 /entrypoint.sh
 
 # Run as a normal user
 USER ubuntu
+WORKDIR /home/ubuntu
 ENTRYPOINT ["/entrypoint.sh"]
