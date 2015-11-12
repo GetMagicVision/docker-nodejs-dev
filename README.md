@@ -8,7 +8,7 @@
 
 ## Features
 
-- Docker support with [docker:dind][]
+- Docker 1.9.0 support with [docker:dind][]
 - nvm 0.29.0
 - node.js 5.0.0 with npm 3.3.6
 - Ruby 1.9.1 with gem 1.8.23
@@ -27,7 +27,7 @@
 ## Getting Started
 
 ```bash
-docker run --privileged --name docker-host -d docker:1.8-dind
+docker run --privileged --name docker-host -d docker:1.9-dind
 docker run -it --link docker-host:docker magicvision/nodejs-dev /bin/bash
 ```
 
