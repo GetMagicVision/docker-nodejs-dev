@@ -13,10 +13,10 @@ RUN apt-get install -y curl build-essential libssl-dev man && \
     echo 'export NVM_DIR="$HOME/.nvm"' >> /etc/profile && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> /etc/profile
 
-# Install node.js 4.1.0
-RUN su - ubuntu -c "nvm install 4.1.0" && \
-    su - ubuntu -c "nvm alias default 4.1.0" && \
-    su - ubuntu -c "nvm use 4.1.0"
+# Install node.js v5.0.0
+RUN su - ubuntu -c "nvm install v5.0.0" && \
+    su - ubuntu -c "nvm alias default v5.0.0" && \
+    su - ubuntu -c "nvm use v5.0.0"
 
 # Use Taobao node mirror and npm registry
 ENV NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
