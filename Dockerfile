@@ -9,22 +9,22 @@ ENV DOCKER_VERSION 1.9.0
 RUN apt-get update -y
 
 # Add a normal user with sudo permission
-RUN adduser --disabled-password --gecos "" ubuntu && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/ubuntu
+RUN adduser --disabled-password --gecos "" bot && echo "bot ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/bot
 
 # Install nvm
 RUN apt-get install -y curl build-essential libssl-dev man && \
-    curl https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | su - ubuntu -c sh && \
+    curl https://raw.githubusercontent.com/creationix/nvm/$NVM_VERSION/install.sh | su - bot -c sh && \
     echo 'export NVM_DIR="$HOME/.nvm"' >> /etc/profile && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"' >> /etc/profile
 
 # Install node.js
-RUN su - ubuntu -c "nvm install $NODEJS_VERSION" && \
-    su - ubuntu -c "nvm alias default $NODEJS_VERSION" && \
-    su - ubuntu -c "nvm use $NODEJS_VERSION"
+RUN su - bot -c "nvm install $NODEJS_VERSION" && \
+    su - bot -c "nvm alias default $NODEJS_VERSION" && \
+    su - bot -c "nvm use $NODEJS_VERSION"
 
 # Use Taobao node mirror and npm registry
 ENV NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
-RUN su - ubuntu -c "npm config set registry http://registry.npm.taobao.org"
+RUN su - bot -c "npm config set registry http://registry.npm.taobao.org"
 
 # Provisioning gitlab CA
 ADD gitlab-CA.crt /usr/local/share/ca-certificates/
@@ -46,7 +46,7 @@ RUN apt-get install -y git
 RUN apt-get install -y python
 
 # Install bower
-RUN apt-get install -y libkrb5-dev && su - ubuntu -c "npm install -g bower"
+RUN apt-get install -y libkrb5-dev && su - bot -c "npm install -g bower"
 
 # Use tsinghua ubuntu mirror
 RUN echo "deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ trusty main restricted universe multiverse" > /etc/apt/sources.list && \
@@ -66,6 +66,6 @@ COPY ./entrypoint.sh /
 RUN chmod 755 /entrypoint.sh
 
 # Run as a normal user
-USER ubuntu
-WORKDIR /home/ubuntu
+USER bot
+WORKDIR /home/bot
 ENTRYPOINT ["/entrypoint.sh"]
