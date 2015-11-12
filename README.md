@@ -17,6 +17,9 @@
 - python 2.7.6
 - bower 1.6.5
 - Run commands as a normal user named *ubuntu* with sudo permission
+- Provisioning 114 DNS
+- Tsinghua Ubuntu mirror
+- Taobao nodejs and npm mirror
 
 [docker:dind]: https://hub.docker.com/_/docker/#
 [Saas]: https://github.com/sass/sass
