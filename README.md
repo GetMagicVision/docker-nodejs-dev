@@ -9,6 +9,7 @@
 ## Features
 
 - Docker support with [docker:dind][]
+- nvm 0.29.0
 - node.js 5.0.0 with npm 3.3.6
 - Ruby 1.9.1 with gem 1.8.23
 - [Saas][] 3.4.18
